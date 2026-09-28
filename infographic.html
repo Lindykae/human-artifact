@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Mechanical Clock - Step-Through Infographic</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px 100px 20px;
+            line-height: 1.5;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .line {
+            display: none;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            animation: fadeIn 0.3s ease-in-out forwards;
+        }
+
+        .line.bold {
+            font-weight: 700;
+            margin-top: 24px;
+        }
+
+        .space {
+            height: 16px;
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(4px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            padding: 10px 18px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        button:hover {
+            background-color: #333;
+        }
+
+        button.secondary {
+            background-color: #e5e5e5;
+            color: #000;
+        }
+
+        button.secondary:hover {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>The Mechanical Clock</h1>
+    <div class="subtitle">Monasteries → Cities → Industrial Society</div>
+
+    <!-- Step 1 -->
+    <div class="line bold">Step 1 (Benedictine Monasteries, 7th–12th C. CE)</div>
+    <div class="line">The desire for spiritual order and collective discipline in Benedictine monasteries required strict temporal regulation</div>
+    <div class="line">Pope Sabinian decreed in the 7th century that monastery bells ring seven times in twenty-four hours</div>
+    <div class="line">Within monastery walls, time was stripped of natural irregularities and replaced with mechanical regularity</div>
+    <div class="line space"></div>
+
+    <!-- Step 2 -->
+    <div class="line bold">Step 2 (European Towns, 13th C. CE)</div>
+    <div class="line">Invention of the mechanical escapement allows weight-driven clock towers to strike hours regardless of weather</div>
+    <div class="line">The technical invention of the escapement, a mechanism that releases weight-driven gear energy in measured, incremental beats, allowed clocks to run reliably without water</div>
+    <div class="line">Within a century of its invention, mechanical clocks moved from secluded monasteries into town squares and cathedral steeples</div>
+    <div class="line">Town bells struck hours that everyone nearby could hear, transforming time from an internal religious habit into a shared public obligation</div>
+    <div class="line space"></div>
+
+    <!-- Step 3 -->
+    <div class="line bold">Step 3 (Civic Squares, 14th C. CE)</div>
+    <div class="line">Clocks move to public city towers, replacing natural temporal rhythms with standardized work hours for town merchants and laborers</div>
+    <div class="line">Rising merchant, guild, and trade networks adopted synchronized time to measure labor, organize markets, and calculate wages</div>
+    <div class="line">Time became detached from natural human needs and organic cycles and "To become as regular as clockwork" became the urban ideal</div>
+    <div class="line space"></div>
+
+    <!-- Step 4 -->
+    <div class="line bold">Step 4 (Global Modernity, 16th C. CE onward)</div>
+    <div class="line">Clockmakers miniaturized mechanisms into pocket watches and domestic clocks, diffusing time-keeping from public towers into individual homes and pockets</div>
+    <div class="line">Clock time became so thoroughly embedded in daily existence that humans viewed it as an unavoidable fact of nature rather than a human invention</div>
+
+    <div class="controls">
+        <button class="secondary" id="reset-btn">Reset</button>
+        <button id="next-btn">Next Step →</button>
+    </div>
+
+    <script>
+        const lines = document.querySelectorAll('.line');
+        let currentIndex = 0;
+
+        function revealNext() {
+            if (currentIndex < lines.length) {
+                lines[currentIndex].style.display = 'block';
+                currentIndex++;
+            }
+        }
+
+        function resetAll() {
+            lines.forEach(line => line.style.display = 'none');
+            currentIndex = 0;
+        }
+
+        // Advance on clicking anywhere on the page
+        document.body.addEventListener('click', (e) => {
+            if (e.target.tagName !== 'BUTTON') {
+                revealNext();
+            }
+        });
+
+        // Advance on Next button click
+        document.getElementById('next-btn').addEventListener('click', revealNext);
+
+        // Reset button
+        document.getElementById('reset-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            resetAll();
+        });
+
+        // Advance on Spacebar or Right Arrow key press
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' || e.code === 'ArrowRight') {
+                revealNext();
+            }
+        });
+    </script>
+</body>
+</html>
